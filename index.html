@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotspots do Produto</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #1f2937;
+      padding: 24px;
+    }
+
+    .container {
+      position: relative;
+      width: min(560px, 92vw);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.1);
+    }
+
+    .base-image {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .hotspot {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      cursor: pointer;
+      background: #7c3aed;
+      display: grid;
+      place-items: center;
+      z-index: 2;
+      border: 2px solid #fff;
+    }
+
+    .pulse {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: rgba(124, 58, 237, 0.45);
+      animation: pulse 1.8s infinite;
+      z-index: -1;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.85;
+      }
+      70% {
+        transform: scale(2.4);
+        opacity: 0;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .info-box {
+      margin-top: 16px;
+      max-width: min(560px, 92vw);
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      padding: 14px 16px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+      line-height: 1.45;
+    }
+
+    .info-box h3 {
+      margin: 0 0 8px;
+      font-size: 1.06rem;
+      color: #111827;
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="produto.png" class="base-image" alt="Imagem do produto" />
+
+    <!-- Hotspot -->
+    <div class="hotspot" style="top: 20%; left: 70%;" onclick="openInfo('melatonina')">
+      <span class="pulse"></span>
+    </div>
+
+    <div class="hotspot" style="top: 35%; left: 70%;" onclick="openInfo('triptofano')">
+      <span class="pulse"></span>
+    </div>
+  </div>
+
+  <!-- Painel -->
+  <div id="infoBox" class="info-box hidden"></div>
+
+  <script>
+    const infoData = {
+      melatonina: {
+        title: 'Melatonina',
+        text: 'Hormônio que ajuda a regular o ciclo do sono, contribuindo para noites mais tranquilas.'
+      },
+      triptofano: {
+        title: 'Triptofano',
+        text: 'Aminoácido essencial precursor da serotonina e melatonina, associado ao bem-estar e relaxamento.'
+      }
+    };
+
+    function openInfo(key) {
+      const box = document.getElementById('infoBox');
+      const info = infoData[key];
+
+      if (!info) {
+        box.classList.add('hidden');
+        box.innerHTML = '';
+        return;
+      }
+
+      box.innerHTML = `<h3>${info.title}</h3><p>${info.text}</p>`;
+      box.classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
